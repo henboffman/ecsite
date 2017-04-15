@@ -51,10 +51,19 @@
                 <ul class="nav navbar-nav navbar-right">
                     <li>
                         <a class="page-scroll" href="#about">About</a>
-                    </li>                    
-                    <li>
-                        <a class="page-scroll" href="#portfolio">Portfolio</a>
                     </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Portfolio <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a class="page-scroll" href="#portfolio">Portfolio</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="portraits.html">Portraits</a></li>
+                            <li><a href="#">Newborns</a></li>
+                            <li><a href="#">Product & Business</a></li>
+                            
+                            <li><a href="#">Separated link</a></li>
+                        </ul>
+                    </li>                    
                     <li>
                         <a class="page-scroll" href="#contact">Contact</a>
                     </li>
@@ -83,7 +92,12 @@
                 <div class="col-lg-8 col-lg-offset-2 text-center">
                     <h2 class="section-heading">We've got what you need!</h2>
                     <hr class="light">
-                    <p class="text-faded">Start Bootstrap has everything you need to get your new website up and running in no time! All of the templates and themes on Start Bootstrap are open source, free to download, and easy to use. No strings attached!</p>
+                    <p class="text-faded">
+                        We are a husband and wife creative team based in mid-Michigan specializing in photography.
+                        Although we have drastically different backgrounds (graphic design vs. computer science), we both can at least agree on a passion for photography.
+                        We’re both constantly seeking new challenges, which is what keeps things fun.
+                        We love photographing portraits, places, products, families, sports, and pretty much anything else we can point our cameras at.
+                    </p>
                     <a href="#services" class="page-scroll btn btn-default btn-xl sr-button">Get Started!</a>
                 </div>
             </div>
@@ -139,6 +153,8 @@
                 <div class="col-lg-4 col-sm-6">
                     <a href="img/portfolio/fullsize/1.jpg" class="portfolio-box">
                         <img src="img/portfolio/thumbnails/1.jpg" class="img-responsive" alt="">
+                        
+
                         <div class="portfolio-box-caption">
                             <div class="portfolio-box-caption-content">
                                 <div class="project-category text-faded">
@@ -150,14 +166,29 @@
                             </div>
                         </div>
                     </a>
+
+                    
+                    <div data-bind="foreach: portraits">
+                        <a data-bind="attr: {href: 'img/portfolio/fullsize/Portraits/' + $index() + '.jpg'}">
+                            <img data-bind="attr: {src: 'img/portfolio/thumbnails/Portraits/' + $index() + '.jpg'}" class="img-responsive" alt="" style="display:none;">
+                        </a>
+                    </div>
+
+
+                    <a href="img/portfolio/fullsize/business1.jpg">
+                        <img src="img/portfolio/fullsize/business1.jpg" class="img-responsive" alt="" style="display:none;">
+                    </a>
+                    <a href="img/portfolio/fullsize/business2.jpg">
+                        <img src="img/portfolio/fullsize/business2.jpg" class="img-responsive" alt="" style="display:none;">
+                    </a>
                 </div>
                 <div class="col-lg-4 col-sm-6">
-                    <a href="img/portfolio/fullsize/2.jpg" class="portfolio-box">
-                        <img src="img/portfolio/thumbnails/2.jpg" class="img-responsive" alt="">
+                    <a href="img/portfolio/fullsize/Newborn/0.jpg" class="portfolio-box">
+                        <img src="img/portfolio/thumbnails/Newborn/0.jpg" class="img-responsive" alt="">
                         <div class="portfolio-box-caption">
                             <div class="portfolio-box-caption-content">
                                 <div class="project-category text-faded">
-                                    Headshots
+                                    Newborns
                                 </div>
                                 <div class="project-name">
                                     Project Name
@@ -165,14 +196,21 @@
                             </div>
                         </div>
                     </a>
+
+                    <div data-bind="foreach: newborns">
+                        <a data-bind="attr: {href: 'img/portfolio/fullsize/Newborn/' + $index() + '.jpg'}">
+                            <img data-bind="attr: {src: 'img/portfolio/thumbnails/Newborn/' + $index() + '.jpg'}" class="img-responsive" alt="" style="display:none;">
+                        </a>
+                    </div>
+
                 </div>
                 <div class="col-lg-4 col-sm-6">
-                    <a href="img/portfolio/fullsize/3.jpg" class="portfolio-box">
-                        <img src="img/portfolio/thumbnails/3.jpg" class="img-responsive" alt="">
+                    <a href="img/portfolio/fullsize/Product-Promotional/0.jpg" class="portfolio-box">
+                        <img src="img/portfolio/thumbnails/Product-Promotional/0.jpg" class="img-responsive" alt="">
                         <div class="portfolio-box-caption">
                             <div class="portfolio-box-caption-content">
                                 <div class="project-category text-faded">
-                                    Children/Newborn
+                                    Product/Promotional
                                 </div>
                                 <div class="project-name">
                                     Project Name
@@ -180,6 +218,11 @@
                             </div>
                         </div>
                     </a>
+                    <div data-bind="foreach: products">
+                        <a data-bind="attr: {href: 'img/portfolio/fullsize/Product-Promotional/' + $index() + '.jpg'}">
+                            <img data-bind="attr: {src: 'img/portfolio/thumbnails/Product-Promotional/' + $index() + '.jpg'}" class="img-responsive" alt="" style="display:none;">
+                        </a>
+                    </div>
                 </div>
                 <div class="col-lg-4 col-sm-6">
                     <a href="img/portfolio/fullsize/4.jpg" class="portfolio-box">
@@ -262,6 +305,8 @@
     <!-- jQuery -->
     <script src="vendor/jquery/jquery.min.js"></script>
 
+    <script src="js/ko.js"></script>
+
     <!-- Bootstrap Core JavaScript -->
     <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
 
@@ -272,6 +317,35 @@
 
     <!-- Theme JavaScript -->
     <script src="js/creative.min.js"></script>
+
+    <script type="text/javascript">
+
+        function AppViewModel() {
+            this.portraitLength = 19;
+            this.newbornLength = 9;
+            this.productLength = 41;
+            this.portraits = ko.observableArray([]);
+            this.newborns = ko.observableArray([]);
+            this.products = ko.observableArray([]);
+
+            for (var i = 0; i < this.portraitLength; i++) {
+                this.portraits.push({});
+            }
+
+            for (var i = 0; i < this.newbornLength; i++) {
+                this.newborns.push({});
+            }
+
+            for (var i = 0; i < this.productLength; i++) {
+                this.products.push({});
+            }
+            
+        }
+
+        $(document).ready(function () {
+            ko.applyBindings(new AppViewModel());
+        })
+    </script>
 
 </body>
 
