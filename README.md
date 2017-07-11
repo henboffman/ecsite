@@ -2,8 +2,8 @@
 
 http://stackoverflow.com/questions/18304025/bulk-renaming-of-files-in-powershell-with-sequential-numeric-suffixes
 
-$i
-Get-ChildItem *.jpg | %{Rename-Item $_ -NewName ("$($i).jpg" -f $i++}
+$i = 0
+Get-ChildItem *.jpg | %{Rename-Item $_ -NewName ("$($i).jpg" -f $i++)}
 
 ## Workflow
 1. Create collection table with id, name, and description
